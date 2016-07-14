@@ -19,8 +19,24 @@ class Doctor
     doctors
   end
 
-  describe("#save") do
-    it ("lets you dave doctors to the database")
+  define_method(:save) do
+      doctor = DB.exec("INSERT INTO doctors (name, specialty_id) VALUES ('#{@name}', '#{@specialty_id}') RETURNING id;")
+      @id = doctor.first.fetch('id').to_i()
   end
 
+  define_method(:==) do |another_doctor|
+    self.name().==(another_doctor.name()).&(self.specialty_id().==(another_doctor.specialty_id())).&(self.id().==(another_doctor.id()))
+  end
+
+  define_method(:patients_doctor_assignment) do
+    patients_list = []
+    returned_patient_list = DB.exec("SELECT * FROM patients WHERE doctor_id = #{self.id()};")
+    returned_patient_list.each() do |patient|
+      name = patient.fetch("name")
+      birth_date = patient.fetch("birth_date")
+      doctor_id = patient.fetch("doctor_id").to_i()
+      patients_list.push(Patient.new({:name => name, :birth_date => birth_date, :doctor_id => doctor_id, :id => id}))
+    end
+    patients_list
+  end
 end

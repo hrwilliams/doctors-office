@@ -31,4 +31,17 @@ describe(Doctor) do
     end
   end
 
+  describe('#patients_doctor_assignment') do
+  it('will display a list of patients assigned to a particular doctor') do
+    test_doctor = Doctor.new({:name => 'Dr. Deodhar', :id => nil, :specialty_id => 1})
+    test_doctor.save
+    patient1 = Patient.new({:name => 'HRW', :birth_date => '1980-01-01', :doctor_id => test_doctor.id()})
+    patient1.save()
+    patient2 = Patient.new({:name => 'DRW', :birth_date => '1977-02-02', :doctor_id => test_doctor.id()})
+    patient2.save()
+    expect(test_doctor.patients_doctor_assignment()).to(eq([patient1, patient2]))
+  end
+end
+
+
 end
