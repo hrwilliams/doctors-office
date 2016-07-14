@@ -22,5 +22,11 @@ describe (Specialty) do
     end
   end
 
-
+    describe("#==") do
+      it("is the same specialty if the info matches") do
+        specialty1 = Specialty.new({:name => 'Family', :id => nil})
+        specialty2 = Specialty.new({:name => 'Family', :id => nil})
+        expect(specialty1).to(eq(specialty2))
+      end
+    end
 end

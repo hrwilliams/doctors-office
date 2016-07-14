@@ -4,6 +4,8 @@ require("doctor")
 require("patient")
 require("specialty")
 require('pry')
+# require('capybara/rspec')
+# Capybara.app = Sinatra::Application
 
 DB = PG.connect({:dbname => "doctors_office_test"})
 

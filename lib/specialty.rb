@@ -1,5 +1,5 @@
 class Specialty
-  attr_reader(:name, :id)
+  attr_reader(:name, :id, :doctor_id)
 
   define_method(:initialize) do |attributes|
     @name = attributes.fetch(:name)
